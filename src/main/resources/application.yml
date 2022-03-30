@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    show-sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: none
+  devtools:
+    livereload:
+      enabled: true
+  #datasource exists in private layer (it has been gitignore)
