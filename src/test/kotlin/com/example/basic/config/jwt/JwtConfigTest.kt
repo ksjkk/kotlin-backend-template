@@ -39,7 +39,7 @@ internal class JwtConfigTest {
         val key = Keys.hmacShaKeyFor(keyBytes)
 
         val now: Long = Date().time
-        val validity = Date(now + 3600000)
+        val validity = Date(now + 36000000) // 10시간
         val token = Jwts.builder()
             .setSubject(id)
             .claim("auth", authorities)
