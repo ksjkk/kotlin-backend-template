@@ -1,5 +1,6 @@
 package com.example.basic.config.jwt
 
+import com.example.basic.app.common.enum.Role
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
@@ -13,6 +14,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
 import java.security.Key
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 
@@ -21,8 +24,8 @@ class JwtProvider(
     @Value("\${jwt.secret}")
     private val secret: String,
 
-    @Value("\${jwt.validity}")
-    private val validity: Long
+    @Value("\${jwt.validityHour}")
+    private val validityHour: Long
 ): InitializingBean {
     private lateinit var key: Key
 
@@ -37,8 +40,8 @@ class JwtProvider(
 
     fun createToken(id: String, authoritySet: Set<Role>): String? {
         val authorities = authoritySet.joinToString(",")
-        val now: Long = Date().time
-        val validity = Date(now + this.validity)
+
+        val validity = Date(Date().time + this.validityHour * 3600000)
         return Jwts.builder()
             .setSubject(id)
             .claim(AUTHORITIES_KEY, authorities)
@@ -69,8 +72,4 @@ class JwtProvider(
             false
         }
     }
-}
-
-enum class Role(val description: String) {
-    ROLE_USER("일반 유저")
 }

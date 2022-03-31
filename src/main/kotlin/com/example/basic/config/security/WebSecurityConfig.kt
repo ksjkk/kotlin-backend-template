@@ -2,7 +2,6 @@ package com.example.basic.config.security
 
 import com.example.basic.config.jwt.JwtFilter
 import com.example.basic.config.jwt.JwtProvider
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -11,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsUtils
 import org.springframework.web.filter.CorsFilter
@@ -23,18 +20,13 @@ import javax.servlet.http.HttpServletResponse
 class WebSecurityConfig {
 
     @Configuration
-    @Order(Ordered.LOWEST_PRECEDENCE)
+    @Order(Ordered.HIGHEST_PRECEDENCE)
     class DefaultSecurityConfig(
         private val jwtProvider: JwtProvider,
         private val corsFilter: CorsFilter
     ): WebSecurityConfigurerAdapter() {
 
         private val jwtFilter = JwtFilter(this.jwtProvider)
-
-        @Bean
-        fun passwordEncoder(): PasswordEncoder? {
-            return BCryptPasswordEncoder()
-        }
 
         companion object {
             private val IGNORE_PATH = arrayOf(
@@ -66,7 +58,6 @@ class WebSecurityConfig {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers(CorsUtils::isCorsRequest).permitAll()
                 .antMatchers("/api/**").hasRole("USER")
-                .anyRequest().authenticated()
         }
     }
 }

@@ -8,3 +8,5 @@ spring:
     livereload:
       enabled: true
   #datasource exists in private layer (it has been gitignore)
+  profiles:
+    active: private

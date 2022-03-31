@@ -28,27 +28,30 @@ internal class JwtConfigTest {
         assertThat(secret).isNotEmpty
     }
 
-
     @Test
     @DisplayName("토근을 생성한다")
-    fun createJsonWebTokenWithSecretKey() {
+    fun createJsonWebTokenWithSecretKey(): String {
+        // given
         val id = "jun.ior"
         val authorities = "ROLE_USER,ROLE_ADMIN"
-
         val keyBytes = Decoders.BASE64.decode("Q0LHGlS1qelLKND+Ig4A684DoRO5irXY6OWUtHQ70APQLJ9tkgHp32SzKTX9lZgZL3k5NyRowNEjNBjyEe6N1A==")
         val key = Keys.hmacShaKeyFor(keyBytes)
-
         val now: Long = Date().time
         val validity = Date(now + 36000000) // 10시간
+
+        //when
         val token = Jwts.builder()
             .setSubject(id)
             .claim("auth", authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
             .compact()
+
+        //then
         log.debug("====token====")
         log.debug(token)
         log.debug("====token====")
         assertThat(token).isNotEmpty
+        return token
     }
 }

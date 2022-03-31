@@ -19,4 +19,7 @@ class BasicApi(
 
     @GetMapping("/v1/basics")
     fun findAll() = succeed(basicService.findAll())
+
+    @DeleteMapping("/v1/basic/{id}")
+    fun deleteById(@PathVariable id: Long) = succeed(basicService.deleteById(id))
 }

@@ -32,10 +32,11 @@ class JwtFilter(
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-        val jwt = resolveToken(request as HttpServletRequest)
+        val req = request as HttpServletRequest
+        val jwt = resolveToken(req)
 
         if (jwt.isEmpty() || !jwtProvider.validateToken(jwt)) {
-            log.warn("인증오류 - jwt : $jwt")
+            log.warn("jwt 인증오류 : $jwt")
             val res = response as HttpServletResponse
             res.sendError(HttpStatus.UNAUTHORIZED.value())
         } else {

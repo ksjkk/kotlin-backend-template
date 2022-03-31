@@ -25,4 +25,10 @@ class BasicService(
         dto.id = basic.id
         return dto
     }
+
+    @Transactional
+    fun deleteById(id: Long):List<BasicDto> {
+        basicRepository.deleteById(id)
+        return findAll()
+    }
 }
