@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jpa:
     show-sql: true
     open-in-view: true
@@ -10,3 +13,7 @@ spring:
   #datasource exists in private layer (it has been gitignore)
   profiles:
     active: private
+
+logging:
+  level:
+    root: debug

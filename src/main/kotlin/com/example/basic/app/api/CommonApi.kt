@@ -1,7 +1,7 @@
 package com.example.basic.app.api
 
 import com.example.basic.app.common.enum.Role
-import com.example.basic.config.jwt.JwtProvider
+import com.example.basic.config.security.jwt.JwtProvider
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,7 +17,7 @@ class CommonApi(
     fun ping() = "pong"
 
     @GetMapping(value = ["/health"])
-    fun health() = ResponseEntity.ok()
+    fun health() = ResponseEntity.ok("health")
 
     @PostMapping(value = ["/oapi/create-token/{id}"])
     fun createToken(@PathVariable id: String): String? = jwtProvider.createToken(id, setOf(Role.ROLE_USER))

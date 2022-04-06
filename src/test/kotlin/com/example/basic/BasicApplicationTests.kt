@@ -41,4 +41,24 @@ class BasicApplicationTests {
 		println(Date(Date().time + 36000 * 1000))
 	}
 
+	@Test
+	fun stringTest() {
+		val nullString: String? = null
+		val emptyString = ""
+		val blankString = " "
+
+		assertThat(nullString.orEmpty().isEmpty()).isTrue
+		assertThat("a".orEmpty().isNotEmpty()).isTrue
+		assertThat(emptyString.isEmpty()).isTrue
+		assertThat(emptyString.isBlank()).isTrue
+		assertThat(blankString.isEmpty()).isFalse
+		assertThat(blankString.isBlank()).isTrue
+	}
+
+	@Test
+	fun substrTest() {
+		val str = "123456789"
+		println(str.substring(0, 5))
+	}
+
 }

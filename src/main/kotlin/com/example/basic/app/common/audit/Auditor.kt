@@ -1,10 +1,8 @@
 package com.example.basic.app.common.audit
 
 import com.example.basic.app.common.enum.Role
-import com.example.basic.config.apiKey.ApiKeyToken
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 
 class Auditor: AuditorAware<String> {
@@ -15,8 +13,7 @@ class Auditor: AuditorAware<String> {
 
             Optional.of(
                 when(val principal = authentication.principal) {
-                    is UserDetails -> principal.username
-                    is ApiKeyToken -> principal.principal!!
+                    is String -> principal
                     else -> ""
                 }
             )
