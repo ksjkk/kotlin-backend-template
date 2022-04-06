@@ -46,6 +46,7 @@ class WebSecurityConfig {
                 "/health",
                 "/ping",
                 "/oapi/**",
+                "/log",
                 *SWAGGER_PATH
             )
         }
@@ -131,7 +132,8 @@ class WebSecurityConfig {
                 .csrf().disable()
                 .sessionManagement().disable()
                 .antMatcher("/**")
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .anyRequest().authenticated()
         }
     }
 }

@@ -21,7 +21,7 @@ class Exception {
 
     @ExceptionHandler
     fun runtimeException(e: RuntimeException): ApiResult<String> {
-        log.warn(e.stackTrace.toString().substring(0, 300))
+        log.warn(e.stackTrace.toString())
         return failure(e.message)
     }
 

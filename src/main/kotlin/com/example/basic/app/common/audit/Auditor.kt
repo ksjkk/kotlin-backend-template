@@ -9,14 +9,12 @@ class Auditor: AuditorAware<String> {
 
     override fun getCurrentAuditor(): Optional<String> {
         return try {
-            val authentication = SecurityContextHolder.getContext().authentication
-
-            Optional.of(
-                when(val principal = authentication.principal) {
-                    is String -> principal
-                    else -> ""
-                }
-            )
+            val principal = SecurityContextHolder.getContext().authentication.principal
+            if(principal is String){
+                Optional.of(principal)
+            } else {
+                Optional.empty()
+            }
         } catch (e: Exception) {
             Optional.empty()
         }

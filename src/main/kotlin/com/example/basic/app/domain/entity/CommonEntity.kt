@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.*
-import kotlin.jvm.Transient
 
 @EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
@@ -23,7 +22,6 @@ open class CommonEntity(
     var createdAt: LocalDateTime? = null,
 
     @LastModifiedDate
-    @Column(updatable = true)
     var updatedAt: LocalDateTime? = null,
 
     @CreatedBy
@@ -31,7 +29,6 @@ open class CommonEntity(
     var createdBy: String = "",
 
     @LastModifiedBy
-    @Column(updatable = true)
     var updatedBy: String = "",
 
     @Enumerated(EnumType.STRING)
