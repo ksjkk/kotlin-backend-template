@@ -1,5 +1,6 @@
 package com.example.basic.config.security.jwt
 
+import com.example.basic.app.common.enum.Role
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
@@ -33,7 +34,7 @@ internal class JwtConfigTest {
     fun createJsonWebTokenWithSecretKey() {
         // given
         val id = "jun.ior"
-        val authorities = "ROLE_USER,ROLE_ADMIN"
+        val authorities = "${Role.ROLE_USER.name},${Role.ROLE_ADMIN.name}"
         val keyBytes = Decoders.BASE64.decode("Q0LHGlS1qelLKND+Ig4A684DoRO5irXY6OWUtHQ70APQLJ9tkgHp32SzKTX9lZgZL3k5NyRowNEjNBjyEe6N1A==")
         val key = Keys.hmacShaKeyFor(keyBytes)
         val now: Long = Date().time
