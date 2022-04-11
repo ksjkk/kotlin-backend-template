@@ -7,12 +7,16 @@ import java.util.*
 
 interface BaseService<ENTITY, ID, DTO> {
 
-    private fun Optional<ENTITY>.getEntity(): ENTITY {
-        return this.orElseThrow { NoEntityFoundException() } as ENTITY
+    private fun Optional<ENTITY>.getEntity(id: ID? = null): ENTITY {
+        return this.orElseThrow { NoEntityFoundException(id) }
     }
 
     private fun getOptionalEntity(id: ID): Optional<ENTITY> {
         return getRepository().findById(id)
+    }
+
+    private fun getEntity(id: ID): ENTITY {
+        return getOptionalEntity(id).getEntity(id)
     }
 
     fun entityToDto(entity: ENTITY): DTO
@@ -23,7 +27,7 @@ interface BaseService<ENTITY, ID, DTO> {
     @Transactional(readOnly = true)
     fun getById(id: ID): DTO {
         return entityToDto(
-            getOptionalEntity(id).getEntity()
+            getEntity(id)
         )
     }
 
@@ -47,16 +51,18 @@ interface BaseService<ENTITY, ID, DTO> {
     fun updateEntity(id: ID, updateElement: (ENTITY) -> Unit): DTO {
         return entityToDto(
             getRepository().save(
-                getOptionalEntity(id).map {
+                Optional.of(getEntity(id)).map {
                     updateElement(it)
                     it
-                }.getEntity()
+                }.getEntity(id)
             )
         )
     }
 
     @Transactional
     fun deleteById(id: ID) {
-        return getRepository().deleteById(id)
+        return getRepository().delete(
+            getEntity(id)
+        )
     }
 }

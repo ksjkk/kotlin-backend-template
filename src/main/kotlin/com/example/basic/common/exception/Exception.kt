@@ -3,8 +3,6 @@ package com.example.basic.common.exception
 import com.example.basic.common.model.ApiResult
 import com.example.basic.common.model.ApiResult.Companion.failure
 import com.example.basic.common.support.Util.Companion.logger
-import org.springframework.context.MessageSource
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -45,5 +43,8 @@ class Exception{
     }
 }
 
-class NoEntityFoundException: RuntimeException("데이터를 찾지 못했습니다")
-
+class NoEntityFoundException(
+    val id: Any? = null
+): RuntimeException(
+    "데이터를 찾을 수 없습니다.${if(id == null){ "" } else { " ID : $id" }}"
+)
