@@ -1,6 +1,6 @@
 package com.example.basic.config.security.jwt
 
-import com.example.basic.app.common.enum.Role
+import com.example.basic.common.enum.Role
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys

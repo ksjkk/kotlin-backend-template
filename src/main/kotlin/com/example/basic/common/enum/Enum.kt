@@ -1,4 +1,4 @@
-package com.example.basic.app.common.enum
+package com.example.basic.common.enum
 
 enum class Role(val description: String, val roleName: String) {
     ROLE_ADMIN("ADMIN", "ADMIN"),

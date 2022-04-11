@@ -1,9 +1,12 @@
-package com.example.basic.app.common.exception
+package com.example.basic.common.exception
 
-import com.example.basic.app.common.model.ApiResult
-import com.example.basic.app.common.model.ApiResult.Companion.failure
-import org.slf4j.LoggerFactory
+import com.example.basic.common.model.ApiResult
+import com.example.basic.common.model.ApiResult.Companion.failure
+import com.example.basic.common.support.Util.Companion.logger
+import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -11,12 +14,21 @@ import kotlin.Exception
 
 
 @RestControllerAdvice
-class Exception {
-    private val log = LoggerFactory.getLogger(javaClass)
+class Exception{
+    private val log = logger()
 
     @ExceptionHandler
     fun noEntityFoundException(e: NoEntityFoundException): ApiResult<String> {
         return failure(e.message)
+    }
+
+    @ExceptionHandler
+    fun methodArgumentNotValidException(e: MethodArgumentNotValidException): ApiResult<String> {
+        val errorMessage = e.bindingResult.fieldErrors.joinToString(", ") {
+            "${it.field} : ${it.defaultMessage}"
+        }
+        log.warn("dto validation error : $errorMessage")
+        return failure(errorMessage)
     }
 
     @ExceptionHandler

@@ -1,7 +1,6 @@
-package com.example.basic.app.domain.entity
+package com.example.basic.common.model
 
-import com.example.basic.app.common.audit.Auditor
-import com.example.basic.app.common.enum.YN
+import com.example.basic.common.enum.YN
 import org.hibernate.annotations.DynamicUpdate
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
@@ -15,7 +14,7 @@ import javax.persistence.*
 @EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
 @DynamicUpdate
-open class CommonEntity(
+abstract class CommonEntity(
 
     @CreatedDate
     @Column(updatable = false)
@@ -26,27 +25,12 @@ open class CommonEntity(
 
     @CreatedBy
     @Column(updatable = false)
-    var createdBy: String = "",
+    var createdBy: String? = null,
 
     @LastModifiedBy
-    var updatedBy: String = "",
+    var updatedBy: String? = null,
 
     @Enumerated(EnumType.STRING)
     var deletedYn: YN = YN.N
 
-): Serializable {
-
-    @PrePersist
-    fun prePersist(){
-        this.createdBy = Auditor().current
-        this.createdAt = LocalDateTime.now()
-        this.updatedBy = Auditor().current
-        this.updatedAt = LocalDateTime.now()
-    }
-
-    @PreUpdate
-    fun preUpdate(){
-        this.updatedBy = Auditor().current
-        this.updatedAt = LocalDateTime.now()
-    }
-}
+): Serializable

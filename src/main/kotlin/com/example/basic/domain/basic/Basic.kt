@@ -1,6 +1,7 @@
-package com.example.basic.app.domain.entity
+package com.example.basic.domain.basic
 
-import com.example.basic.app.domain.dto.BasicDto
+import com.example.basic.basic.dto.BasicDto
+import com.example.basic.common.model.CommonEntity
 import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
@@ -15,15 +16,15 @@ data class Basic(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "basic_id")
-    var id: Long? = null,
+    var id: Long = 0,
 
-    @Column(length = 100)
-    var content: String? = null
+    @Column(length = 100, nullable = false)
+    var content: String = ""
 
 ): CommonEntity(){
 
     fun toDto() = BasicDto(
-                        id = this.id,
-                        content = this.content
-                    )
+        id = this.id,
+        content = this.content
+    )
 }

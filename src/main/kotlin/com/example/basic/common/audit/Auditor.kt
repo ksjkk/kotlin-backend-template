@@ -1,6 +1,6 @@
-package com.example.basic.app.common.audit
+package com.example.basic.common.audit
 
-import com.example.basic.app.common.enum.Role
+import com.example.basic.common.enum.Role
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*

@@ -1,6 +1,6 @@
-package com.example.basic.app.infrastructure.repository
+package com.example.basic.auth.infrastructure
 
-import com.example.basic.app.domain.entity.ApiKey
+import com.example.basic.domain.auth.ApiKey
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*

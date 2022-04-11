@@ -9,39 +9,6 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-//class JwtFilter(
-//    private val jwtProvider: JwtProvider
-//) : GenericFilterBean() {
-//    private val log = LoggerFactory.getLogger(javaClass)
-//
-//    companion object {
-//        private const val AUTHORIZATION_HEADER = "Authorization"
-//        private const val BEARER_PREFIX = "Bearer "
-//    }
-//
-//    private fun resolveToken(request: HttpServletRequest): String {
-//        val bearerToken = request.getHeader(AUTHORIZATION_HEADER).orEmpty()
-//        return if (bearerToken.isNotBlank() && bearerToken.startsWith(BEARER_PREFIX)) {
-//            bearerToken.replaceFirst(BEARER_PREFIX.toRegex(), "")
-//        } else ""
-//    }
-//
-//    @Throws(IOException::class, ServletException::class)
-//    override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
-//        val req = request as HttpServletRequest
-//        val jwt = resolveToken(req)
-//
-//        if (jwt.isEmpty() || !jwtProvider.validateToken(jwt)) {
-//            log.warn("jwt 인증오류 : $jwt")
-//            (response as HttpServletResponse).sendError(HttpStatus.UNAUTHORIZED.value())
-//        } else {
-//            val authentication: Authentication? = jwtProvider.getAuthentication(jwt)
-//            SecurityContextHolder.getContext().authentication = authentication
-//            chain.doFilter(request, response)
-//        }
-//    }
-//}
-
 
 class JwtFilter(
     requestMatcher: RequestMatcher,

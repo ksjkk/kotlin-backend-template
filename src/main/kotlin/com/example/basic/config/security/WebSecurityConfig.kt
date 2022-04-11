@@ -45,8 +45,6 @@ class WebSecurityConfig {
             private val PUBLIC_PATH = arrayOf(
                 "/health",
                 "/ping",
-                "/oapi/**",
-                "/log",
                 *SWAGGER_PATH
             )
         }

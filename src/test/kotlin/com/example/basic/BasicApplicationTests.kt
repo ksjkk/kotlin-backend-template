@@ -1,5 +1,9 @@
 package com.example.basic
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.PropertyNamingStrategy
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -61,4 +65,33 @@ class BasicApplicationTests {
 		println(str.substring(0, 5))
 	}
 
+	@Test
+	fun dto(){
+		val listDto1 = ListDto(listOf("string1","string2"), "string")
+		val listDto2 = ListDto(null, "string")
+		val dto1 = Dto("string")
+		val dto2 = Dto(null)
+
+		println("*******")
+		println(listDto1)
+		println(listDto2)
+		println(dto1)
+		println(dto2)
+	}
+
 }
+
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class ListDto(
+	var list: List<String>? = null,
+	var string: String? = null
+)
+
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class Dto(
+	var string: String? = null
+)

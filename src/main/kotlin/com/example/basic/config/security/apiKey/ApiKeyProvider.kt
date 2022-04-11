@@ -1,6 +1,6 @@
 package com.example.basic.config.security.apiKey
 
-import com.example.basic.app.infrastructure.repository.ApiKeyRepository
+import com.example.basic.auth.infrastructure.ApiKeyRepository
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.InsufficientAuthenticationException
 import org.springframework.security.core.Authentication

@@ -1,5 +1,6 @@
-package com.example.basic.app.domain.entity
+package com.example.basic.domain.auth
 
+import com.example.basic.common.model.CommonEntity
 import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where

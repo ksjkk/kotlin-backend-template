@@ -1,4 +1,4 @@
-package com.example.basic.app.common.audit
+package com.example.basic.common.audit
 
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.ConfigurationProperties

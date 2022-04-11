@@ -1,9 +1,9 @@
 package com.example.basic.app.service
 
-import com.example.basic.app.common.model.EntityWrapper.Companion.wrapped
-import com.example.basic.app.domain.dto.BasicDto
-import com.example.basic.app.domain.entity.Basic
-import com.example.basic.app.infrastructure.repository.BasicRepository
+import com.example.basic.basic.application.BasicService
+import com.example.basic.basic.dto.BasicDto
+import com.example.basic.domain.basic.Basic
+import com.example.basic.basic.infrastructure.BasicRepository
 import com.example.basic.app.service.MockData.Companion.basic
 import com.example.basic.app.service.MockData.Companion.basicList
 import com.example.basic.app.service.MockData.Companion.convertBasic
